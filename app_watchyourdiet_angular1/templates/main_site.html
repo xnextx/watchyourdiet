@@ -1,3 +1,7 @@
+{% extends "index.html" %}
 {% block hello %}
-Hello World!
+
+<input type="text" ng-model="s">
+{% verbatim %}{{ s }}{% endverbatim %}
+
 {% endblock %}
