@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_watchyourdiet_angular1',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
