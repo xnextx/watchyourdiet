@@ -5,3 +5,11 @@ This project is not finished yet...
 ### Backend ###
 - Django 1.8+
 - Django Rest Framework 3
+
+### Frontend ###
+- Bootstrap
+- Material-Kit
+- Angular 1.x
+- Jquery
+
+- LESS
