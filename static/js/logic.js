@@ -26,6 +26,29 @@ Application.controller('main_site', ['$scope', '$http', function ($scope, $http)
         }
 
     };
-    $scope.teste = "";
+
+
+
+       //
+//*****************************************
+//
+//    Developer Version
+//
+//*****************************************
+
+    function SendTestData(){
+        $http.post("/api/v1/MyMeal/", {
+            "owner": 1,
+            "product": [{
+                "name": "Egg",
+                "size": 1
+            }],
+            "name": "Dinner"
+
+        });
+    }
+    function DeleteTestData(){
+         $http.delete("/api/v1/MyMeal/19")
+    }
 
 }]);
