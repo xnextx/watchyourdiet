@@ -3,7 +3,7 @@ var Application = angular.module('Application', []).config(function ($httpProvid
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
 });
 
-Application.controller('main_site', ['$scope', '$http', function ($scope, $http) {
+Application.controller('main_site', ['$scope', '$http', 'Dev', function ($scope, $http, Dev) {
     $scope.products = [{
         "name": "sdsd",
         "size": 0
@@ -28,27 +28,36 @@ Application.controller('main_site', ['$scope', '$http', function ($scope, $http)
     };
 
 
-
-       //
+    //
 //*****************************************
 //
 //    Developer Version
 //
 //*****************************************
 
-    function SendTestData(){
-        $http.post("/api/v1/MyMeal/", {
-            "owner": 1,
-            "product": [{
-                "name": "Egg",
-                "size": 1
-            }],
-            "name": "Dinner"
+    // Dev.SendTestData();
+    Dev.DeleteTestData(20);
 
-        });
-    }
-    function DeleteTestData(){
-         $http.delete("/api/v1/MyMeal/19")
-    }
+}]);
+
+Application.factory('Dev',['$http', function ($http) {
+
+
+    return {
+        SendTestData: function () {
+            $http.post("/api/v1/MyMeal/", {
+                "owner": 1,
+                "product": [{
+                    "name": "Egg",
+                    "size": 1
+                }],
+                "name": "Dinner"
+
+            });
+        },
+        DeleteTestData: function (pk) {
+            $http.delete(`/api/v1/MyMeal/${pk}`)
+        }
+    };
 
 }]);
