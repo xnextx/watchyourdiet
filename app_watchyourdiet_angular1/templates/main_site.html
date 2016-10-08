@@ -1,11 +1,23 @@
 {% extends "index.html" %}
 {% block hello %}
 
-<input type="text" ng-model="s">
-{% verbatim %}{{ s }}{% endverbatim %}
 
-    <section ng-controller="Test">
-    {% verbatim %}{{ teste }}{% endverbatim %}
-    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group" ng-repeat="product in products">
+                            <input type="text" ng-model="product.name" class="form-control" />
+                        </div>
+                        <button class="btn btn-success" type="text" ng-click="add_new_product()">Add new meal</button>
+                        <button class="btn btn-danger" type="text" ng-click="del_new_product()">Delete last meal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 {% endblock %}

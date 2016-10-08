@@ -22,5 +22,11 @@ class MyMeal(models.Model):
     class Meta:
         verbose_name_plural = "Meals"
 
+    def delete(self):
+        if self:
+            for product in self.product.all():
+                product.delete()
+        super(MyMeal, self).delete()
+
     def __str__(self):
         return u"%s" % self.name
