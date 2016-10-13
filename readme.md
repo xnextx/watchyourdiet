@@ -11,5 +11,4 @@ This project is not finished yet...
 - Material-Kit
 - Angular 1.x
 - Jquery
-
 - LESS
