@@ -5,7 +5,7 @@ var Application = angular.module('Application', []).config(function ($httpProvid
 
 Application.controller('main_site', ['$scope', '$http', 'Dev', function ($scope, $http, Dev) {
     $scope.products = [{
-        "name": "sdsd",
+        "name": "",
         "size": 0
     }];
 
@@ -13,11 +13,15 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', function ($scope,
         return $scope.products.length;
     };
 
-    $scope.add_new_product = function () {
-        $scope.products.push({
-            "name": "",
-            "size": 0
-        })
+    $scope.add_new_product = function (content) {
+
+        if (content.length == 1) {
+
+            $scope.products.push({
+                "name": "",
+                "size": 0
+            })
+        }
     };
 
     $scope.del_new_product = function () {
@@ -36,22 +40,20 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', function ($scope,
 //*****************************************
 
     // Dev.SendTestData();
-    Dev.DeleteTestData(20);
+    // Dev.DeleteTestData(20);
 
 }]);
 
-Application.factory('Dev',['$http', function ($http) {
+
+Application.factory('Dev', ['$http', function ($http) {
 
 
     return {
         SendTestData: function () {
             $http.post("/api/v1/MyMeal/", {
                 "owner": 1,
-                "product": [{
-                    "name": "Egg",
-                    "size": 1
-                }],
-                "name": "Dinner"
+                "product": [], //TODO: Dlaczego dając [] wysyła się poprawnie, a cokolwiek innego już nie? nie chce tak!
+                "name": "test"
 
             });
         },
@@ -59,5 +61,4 @@ Application.factory('Dev',['$http', function ($http) {
             $http.delete(`/api/v1/MyMeal/${pk}`)
         }
     };
-
 }]);
