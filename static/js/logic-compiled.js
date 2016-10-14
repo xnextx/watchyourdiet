@@ -6,7 +6,6 @@ var Application = angular.module('Application', []).config(function ($httpProvid
 });
 
 Application.controller('main_site', ['$scope', '$http', 'Dev', function ($scope, $http, Dev) {
-    $scope.test = 0;
     $scope.products = [{
         "name": "",
         "size": 0
