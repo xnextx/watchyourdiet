@@ -1,5 +1,27 @@
 describe('Users factory', function () {
-    it('has a dummy spec to test 2 + 2', function () {
-        expect(2 + 3).toBe(5);
+    var scope;
+
+    beforeEach(angular.mock.module('Application'));
+
+    beforeEach(angular.mock.inject(function ($rootScope, $controller) {
+        scope = $rootScope.$new();
+        $controller('main_site', {$scope: scope});
+    }));
+
+
+    it('add new product', function () {
+
+        scope.add_new_product("one_product");
+
+        expect(scope.products).toEqual([
+            {
+                "name": "",
+                "size": 0
+            },
+            {
+                "name": "",
+                "size": 0
+            }
+        ]);
     });
 });

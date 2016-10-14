@@ -6,6 +6,7 @@ var Application = angular.module('Application', []).config(function ($httpProvid
 });
 
 Application.controller('main_site', ['$scope', '$http', 'Dev', function ($scope, $http, Dev) {
+    $scope.test = 0;
     $scope.products = [{
         "name": "",
         "size": 0
@@ -17,13 +18,10 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', function ($scope,
 
     $scope.add_new_product = function (content) {
 
-        if (content.length == 1) {
-
-            $scope.products.push({
-                "name": "",
-                "size": 0
-            });
-        }
+        $scope.products.push({
+            "name": "",
+            "size": 0
+        });
     };
 
     $scope.del_new_product = function () {
