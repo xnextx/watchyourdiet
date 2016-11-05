@@ -6,11 +6,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WatchYourDiet - Angular1</title>
-    <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.css" class="rel">
-    <link rel="stylesheet" href="/static/bower_components/material-kit/assets/css/material-kit.css" class="rel">
-    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/static/bower_components/materialize/dist/css/materialize.min.css"
+          media="screen,projection"/>
+
     <link rel="stylesheet" href="/static/style/main.css" class="rel">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 </head>
 <body>
@@ -21,10 +23,16 @@
 </section>
 
 
-<script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/static/bower_components/material-kit/assets/js/material.min.js"></script>
-<script src="/static/bower_components/material-kit/assets/js/material-kit.js"></script>
+<script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/static/bower_components/materialize/dist/js/materialize.min.js"></script>
 <script src="/static/bower_components/angular/angular.js"></script>
 <script src="/static/js/dist/logic.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.tooltipped').tooltip({delay: 50});
+    });
+
+</script>
 </body>
 </html>

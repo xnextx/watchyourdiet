@@ -21,10 +21,10 @@ class MyMealAdmin(admin.ModelAdmin):
                 product.count = MyMeal.objects.filter(product=product).count()
 
         print(product.count)
-        # for x in obj.all():
-        #     for y in x.product.all():
-        #         y.delete()
-        #     x.delete()
+        for x in obj.all():
+            for y in x.product.all():
+                y.delete()
+            x.delete()
 
 
 

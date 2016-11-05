@@ -1,57 +1,83 @@
 {% extends "index.html" %}
 {% block hello %}
-
-
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <div class="col-sm-7">
-                                <input type="text" ng-model="mymeal[0].name" class="form-control"
-                                       placeholder="My meal name"/>
-                            </div>
-
-                            <div class="col-sm-5">
-                                <div class="text-center">
-                                    <button class="btn btn-success" ng-click="send_mymeal(mymeal[0])">
-                                        Send My meal
-                                    </button>
-                                    <button class="btn btn-primary btn-fab btn-fab-mini btn-round" rel="tooltip"
-                                            title="Add new product" data-placement="bottom"
-                                            ng-click="add_new_product(null, false)">
-                                        <i class="material-icons">add</i>
-                                    </button>
-                                    <button class="btn btn-danger btn-fab btn-fab-mini btn-round" rel="tooltip"
-                                            title="Delete last product" data-placement="bottom"
-                                            ng-click="del_last_product()">
-                                        <i class="material-icons">remove</i>
-                                    </button>
-
+            <div class="col s12">
+                <div class="card white darken-1">
+                    <div class="card-content grey-text text-darken-2">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card-title">
+                                    Karta posiłku
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center-align">
 
+                                <button class="btn waves-effect waves-light tooltipped" style="padding: 0 1rem"
+                                        data-position="bottom" data-delay="50"
+                                        data-tooltip="Dodaj nowy produkt"
+                                        ng-click="add_new_product(null, false)">
+                                    <i class="material-icons">add</i>
+                                </button>
+                                <button class="btn waves-effect waves-light red tooltipped" style="padding: 0 1rem"
+                                        style="padding-bottom: 0.075rem"
+                                        data-position="bottom" data-delay="50"
+                                        data-tooltip="Usuń ostatni produkt"
+                                        ng-click="del_last_product()">
+                                    <i class="material-icons">remove</i>
+                                </button>
+                                <button class="btn waves-effect waves-light tooltipped red" style="padding: 0 1rem"
+                                        data-position="bottom" data-delay="50"
+                                        data-tooltip="Zresetuj formularz"
+                                        ng-click="reset()">
+                                    Res
+                                </button>
+                                <button class="btn waves-effect waves-light tooltipped"
+                                        data-position="bottom" data-delay="50"
+                                        data-tooltip="Dodaj posiłek"
+                                        ng-click="send_mymeal(mymeal[0])">
+                                    Dodaj posiłek
+                                </button>
+                            </div>
 
                         </div>
-                        <div class="card-body">
-                            <div class="input-group" ng-repeat="product in mymeal[0]['product']">
+                        <div class="divider"></div>
 
-                                <input type="text" ng-model="product.name" class="form-control"
-                                       placeholder="Product name" ng-change="add_new_product(product, true)"/>
-                                <span class="input-group-addon">
-                                    <button class="btn btn-danger btn-xs" ng-click="del_new_product(product)"
-                                            ng-show="products.length > 1">
-                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                </span>
+                        <div class="row">
+                            <div class="col s10 m7 offset-s2 offset-m5">
+                                <div class="input-field right-align">
+                                    <i class="material-icons prefix">nature</i>
+                                    <input id="last_name" type="text" class="validate" ng-model="mymeal[0].name">
+                                    <label for="last_name">Nazwa posiłku</label>
+                                </div>
                             </div>
                         </div>
+                        <div class="row" ng-repeat="product in mymeal[0]['product']">
+                            <div class="col s8 m7 ">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">restaurant</i>
+                                    <input id="last_name" type="text" class="validate"
+                                           ng-model="product.name" ng-change="add_new_product(product, true)">
+                                    <label for="last_name">Nazwa produktu</label>
+                                </div>
+                            </div>
+                            <div class="col s4 m5">
+                                <button class="btn waves-effect waves-light"
+                                        ng-click="del_new_product(product)" ng-show="products.length > 1">
+                                    <i class="material-icons">remove</i>
+
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-
 
 
 {% endblock %}

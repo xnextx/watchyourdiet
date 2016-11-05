@@ -5,7 +5,7 @@ var Application = angular.module('Application', []).config(function ($httpProvid
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 });
 
-Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Error', function ($scope, $http, Dev, Database, Error) {
+Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toast', function ($scope, $http, Dev, Database, Toast) {
     var max_products = 10;
     $scope.products = [{
         "owner": 1,
@@ -23,14 +23,6 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
     //    Tools
     //
     //*****************************************
-    $scope.is_empty = function (value) {
-        return value == "" || value == null || value == undefined;
-    };
-    //*****************************************
-    //
-    //    End Tools
-    //
-    //*****************************************
     $scope.reset = function () {
         $scope.products = [{
             "owner": 1,
@@ -42,7 +34,17 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
             "name": null,
             "product": $scope.products
         }];
+        Toast.Show([true, "Zresetowano formularz."]);
     };
+    $scope.is_empty = function (value) {
+        return value == "" || value == null || value == undefined;
+    };
+    //*****************************************
+    //
+    //    End Tools
+    //
+    //*****************************************
+
     $scope.send_mymeal = function (mymeal) {
         //TODO: Można to poprawić, obiekt validatora powinien tylko validować obiekt, a nie przy okazji wywoływać jego skasowanie
         ////////////////////
@@ -73,19 +75,21 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
         if ($scope.validator(mymeal) == true) {
             var success = function success(response) {
                 console.log("Sukces");
+                Toast.Show([true, "Dodano nowy posiłek."]);
                 $scope.reset();
             };
             var error = function error(reason) {
-                Error.Show([false, "Błąd podczas wysyłania posiłku."]);
+                Toast.Show([false, "Błąd podczas wysyłania posiłku."]);
             };
             Database.Send(mymeal).then(success, error);
         } else {
-            Error.Show($scope.validator(mymeal, false));
+            Toast.Show($scope.validator(mymeal, false));
         }
     };
 
     $scope.add_new_product = function (product) {
         var valid = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
 
         ////////////////////
         // Validator
@@ -97,6 +101,7 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
             var report = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
             if (valid == true) {
+
                 var product_name_lenght;
                 try {
                     product_name_lenght = product.name.length;
@@ -113,7 +118,6 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
                         }
                         return [true, null];
                     } else {
-                        //TODO: Jeżeli jest więcej pól na produkty niż wpisujemy to nie ma dodawać nowego pola
                         // $scope.products[$scope.products.length - 1].name = product.name;
                         // $scope.products[$scope.products.length - 1].size = product.size;
                         for (var x in $scope.products) {
@@ -142,6 +146,10 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
         ////////////////////
         if ($scope.validator(product, valid)[0] == true) {
             if ($scope.products.length < max_products) {
+                //Materialize bug value tip
+                $(document).ready(function () {
+                    Materialize.updateTextFields();
+                });
                 $scope.products.push({
                     "owner": 1,
                     "name": null,
@@ -149,11 +157,11 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
                 });
                 return true;
             } else {
-                Error.Show([false, 'Maksymalna ilo\u015B\u0107 produkt\xF3w w posi\u0142ku to ' + max_products]);
+                Toast.Show([false, 'Maksymalna ilo\u015B\u0107 produkt\xF3w w posi\u0142ku to ' + max_products]);
                 return false;
             }
         } else {
-            Error.Show($scope.validator(product, valid, true));
+            Toast.Show($scope.validator(product, valid, true));
             return false;
         }
     };
@@ -180,11 +188,12 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
     // Dev.DeleteTestData(20);
 
 }]);
-Application.factory('Error', [function () {
+Application.factory('Toast', [function () {
     return {
         Show: function Show(reason) {
             if (reason[1] != null) {
-                console.log('Error: ' + reason[0] + ' - ' + reason[1]);
+                Materialize.toast(reason[1], 4000);
+                console.log('Toast: ' + reason[0] + ' - ' + reason[1]);
             }
         }
     };
