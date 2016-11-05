@@ -12,3 +12,4 @@ This project is not finished yet...
 - Angular 1.x
 - Jquery
 - LESS
+- Bower
