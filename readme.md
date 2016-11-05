@@ -7,8 +7,7 @@ This project is not finished yet...
 - Django Rest Framework 3
 
 ### Frontend ###
-- Bootstrap
-- Material-Kit
+- Materialize
 - Angular 1.x
 - Jquery
 - LESS
