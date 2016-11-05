@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import *
-
+from django.db.models import Count
 
 # Register your models here.
 
@@ -13,10 +13,18 @@ class MyMealAdmin(admin.ModelAdmin):
         return actions
 
     def delete_models(self, request, obj):
-        for x in obj.all():
-            for y in x.product.all():
-                y.delete()
-            x.delete()
+        keywords_list = Product.objects.all().annotate(count=Count('name'))
+        # keywords_list = MyMeal.objects.all().annotate(key_count=Count('product_set'))
+
+        for mymeal in obj.all():
+            for product in mymeal.product.all():
+                product.count = MyMeal.objects.filter(product=product).count()
+
+        print(product.count)
+        # for x in obj.all():
+        #     for y in x.product.all():
+        #         y.delete()
+        #     x.delete()
 
 
 

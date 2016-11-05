@@ -1,6 +1,8 @@
+'use strict';
+
 var Application = angular.module('Application', []).config(function ($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken'; //Elements for Django
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 });
 
 Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Error', function ($scope, $http, Dev, Database, Error) {
@@ -16,19 +18,19 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
         "product": $scope.products
     }];
 
-//*****************************************
-//
-//    Tools
-//
-//*****************************************
+    //*****************************************
+    //
+    //    Tools
+    //
+    //*****************************************
     $scope.is_empty = function (value) {
-        return (value == "" || value == null || value == undefined);
+        return value == "" || value == null || value == undefined;
     };
-//*****************************************
-//
-//    End Tools
-//
-//*****************************************
+    //*****************************************
+    //
+    //    End Tools
+    //
+    //*****************************************
     $scope.reset = function () {
         $scope.products = [{
             "owner": 1,
@@ -46,7 +48,9 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
         ////////////////////
         // Validator
         ////////////////////
-        $scope.validator = function (mymeal, report = false) {
+        $scope.validator = function (mymeal) {
+            var report = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
             if ($scope.is_empty(mymeal.name)) {
                 return [false, 'Nie podano nazwy posiłku.'];
             }
@@ -67,30 +71,31 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
         ////////////////////
 
         if ($scope.validator(mymeal) == true) {
-            var success = function (response) {
+            var success = function success(response) {
                 console.log("Sukces");
                 $scope.reset();
-
             };
-            var error = function (reason) {
-                Error.Show([false, "Błąd podczas wysyłania posiłku."])
+            var error = function error(reason) {
+                Error.Show([false, "Błąd podczas wysyłania posiłku."]);
             };
             Database.Send(mymeal).then(success, error);
-
         } else {
             Error.Show($scope.validator(mymeal, false));
         }
     };
 
+    $scope.add_new_product = function (product) {
+        var valid = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-    $scope.add_new_product = function (product, valid = true) {
         ////////////////////
         // Validator
         // product -> product
         // valid -> whether the product has to pass validation
         // report -> only information about validation result
         ////////////////////
-        $scope.validator = function (product, valid, report = false) {
+        $scope.validator = function (product, valid) {
+            var report = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
             if (valid == true) {
                 var product_name_lenght;
                 try {
@@ -104,9 +109,7 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
                         for (var x in $scope.products) {
                             if ($scope.is_empty($scope.products[x].name)) {
                                 return [false, null];
-                            } else {
-
-                            }
+                            } else {}
                         }
                         return [true, null];
                     } else {
@@ -116,9 +119,7 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
                         for (var x in $scope.products) {
                             if ($scope.is_empty($scope.products[x].name)) {
                                 return [false, null];
-                            } else {
-
-                            }
+                            } else {}
                         }
                         return [true, null];
                     }
@@ -127,14 +128,12 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
                 //     return [false, "Nazwa produktu jest pusta oraz długość nazwy jest większa od 1"];
                 // }
                 else if (product_name_lenght == 0 && report == false) {
-                    $scope.del_new_product(product);
-                    return [false, null];
-                }
-                else {
-                    return [false, null];
-                }
-            }
-            else {
+                        $scope.del_new_product(product);
+                        return [false, null];
+                    } else {
+                        return [false, null];
+                    }
+            } else {
                 return [true, "Walidacja została wyłączona."];
             }
         };
@@ -150,10 +149,9 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
                 });
                 return true;
             } else {
-                Error.Show([false, `Maksymalna ilość produktów w posiłku to ${max_products}`]);
+                Error.Show([false, 'Maksymalna ilo\u015B\u0107 produkt\xF3w w posi\u0142ku to ' + max_products]);
                 return false;
             }
-
         } else {
             Error.Show($scope.validator(product, valid, true));
             return false;
@@ -172,51 +170,46 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Erro
         }
     };
 
-//
-//*****************************************
-//
-//    Developer Version
-//
-//*****************************************
-// Dev.SendTestData();
-// Dev.DeleteTestData(20);
+    //
+    //*****************************************
+    //
+    //    Developer Version
+    //
+    //*****************************************
+    // Dev.SendTestData();
+    // Dev.DeleteTestData(20);
 
-
-}])
-;
+}]);
 Application.factory('Error', [function () {
     return {
-        Show: function (reason) {
+        Show: function Show(reason) {
             if (reason[1] != null) {
-                console.log(`Error: ${reason[0]} - ${reason[1]}`);
+                console.log('Error: ' + reason[0] + ' - ' + reason[1]);
             }
         }
-    }
+    };
 }]);
 Application.factory('Database', ['$http', function ($http) {
     // this.Send = function (mymeal) {
     //     return $http.post("/api/v1/MyMeal/", mymeal);
     // };
     return {
-        Send: function (mymeal) {
+        Send: function Send(mymeal) {
             return $http.post("/api/v1/MyMeal/", mymeal);
-        },
-        // Delete: function (pk) {
-        //     return $http.delete(`/api/v1/MyMeal/${pk}`);
-        // }
-    }
+        }
+    };
 }]);
 Application.factory('Dev', ['$http', function ($http) {
     return {
-        SendTestData: function () {
+        SendTestData: function SendTestData() {
             $http.post("/api/v1/MyMeal/", {
                 "owner": 1,
                 "product": [], //TODO: Dlaczego dając [] wysyła się poprawnie, a cokolwiek innego już nie? nie chce tak!
                 "name": "test"
             });
         },
-        DeleteTestData: function (pk) {
-            $http.delete(`/api/v1/MyMeal/${pk}`)
+        DeleteTestData: function DeleteTestData(pk) {
+            $http.delete('/api/v1/MyMeal/' + pk);
         }
     };
 }]);

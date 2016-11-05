@@ -4,14 +4,48 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-">
+            <div class="col-sm-6 col-sm-offset-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="form-group" ng-repeat="product in products">
-                            <input type="text" ng-model="product.name" class="form-control" ng-change="add_new_product(product.name)"/>
+                        <div class="card-title">
+                            <div class="col-sm-7">
+                                <input type="text" ng-model="mymeal[0].name" class="form-control"
+                                       placeholder="My meal name"/>
+                            </div>
+
+                            <div class="col-sm-5">
+                                <div class="text-center">
+                                    <button class="btn btn-success" ng-click="send_mymeal(mymeal[0])">
+                                        Send My meal
+                                    </button>
+                                    <button class="btn btn-primary btn-fab btn-fab-mini btn-round" rel="tooltip"
+                                            title="Add new product" data-placement="bottom"
+                                            ng-click="add_new_product(null, false)">
+                                        <i class="material-icons">add</i>
+                                    </button>
+                                    <button class="btn btn-danger btn-fab btn-fab-mini btn-round" rel="tooltip"
+                                            title="Delete last product" data-placement="bottom"
+                                            ng-click="del_last_product()">
+                                        <i class="material-icons">remove</i>
+                                    </button>
+
+                                </div>
+                            </div>
+
+
                         </div>
-                        <button class="btn btn-success" type="text" ng-click="add_new_product()">Add new meal</button>
-                        <button class="btn btn-danger" type="text" ng-click="del_new_product()">Delete last meal</button>
+                        <div class="card-body">
+                            <div class="input-group" ng-repeat="product in mymeal[0]['product']">
+
+                                <input type="text" ng-model="product.name" class="form-control"
+                                       placeholder="Product name" ng-change="add_new_product(product, true)"/>
+                                <span class="input-group-addon">
+                                    <button class="btn btn-danger btn-xs" ng-click="del_new_product(product)"
+                                            ng-show="products.length > 1">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

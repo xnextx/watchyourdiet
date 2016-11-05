@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Fri Oct 14 2016 16:12:50 GMT+0200 (CEST)
+// Generated on Thu Nov 03 2016 21:16:15 GMT+0100 (CET)
 
 module.exports = function (config) {
     config.set({
@@ -19,7 +19,7 @@ module.exports = function (config) {
             '../../node_modules/angular-ui-router/release/angular-ui-router.js', // ui-router
             '../../node_modules/angular-mocks/angular-mocks.js', // loads our modules for tests
             'tests/*',
-            'logic-compiled.js'
+            'dist/logic.js'
         ],
 
 
