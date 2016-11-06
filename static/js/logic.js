@@ -1,3 +1,5 @@
+"use strict";
+
 var Application = angular.module('Application', []).config(function ($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken'; //Elements for Django
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
@@ -44,7 +46,6 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toas
 //*****************************************
 
     $scope.send_mymeal = function (mymeal) {
-        //TODO: Można to poprawić, obiekt validatora powinien tylko validować obiekt, a nie przy okazji wywoływać jego skasowanie
         ////////////////////
         // Validator
         ////////////////////

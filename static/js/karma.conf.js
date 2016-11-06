@@ -16,6 +16,7 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             '../../node_modules/angular/angular.js',                             // angular
+            '../../static/bower_components/jquery/dist/jquery.min.js',                             // jquery
             '../../node_modules/angular-ui-router/release/angular-ui-router.js', // ui-router
             '../../node_modules/angular-mocks/angular-mocks.js', // loads our modules for tests
             'tests/*',
