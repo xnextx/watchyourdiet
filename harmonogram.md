@@ -2,7 +2,7 @@
 ###Strona dodawania posiłków
 
 ####Js
-- []Wytestować aktualny JS.
+- [ ]Wytestować aktualny JS.
 - Skrócić czas wyświetlania alertów.
 - Dodać alerty pozytywne i negatywne.
 - Rozbudować kasowanie posiłków z pozycji admina, aby podczas kasowania posiłku, patrzyło na produkty i sprawdzało, czy te produkty są jeszcze gdzieś dowiązane, jak nie to mają się kasować.
