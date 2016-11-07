@@ -2,15 +2,10 @@
 # Strona dodawania posiłków
 
 ### Ważne
-- [x] Przetestować aktualny JS.
-
-- [ ] TO JEST KURCZE PROBLEM: 
-    - Przeszukując całą bezę aby sprawdzić, czy czasem nie został żaden posiłek będzie słabe.
-    - Z drugiej strony, nie tworzenie takich dowiązań, tylko dodawanie nowych, skończy się tym, że klient dostanie 40.000 batonów i będzie musiał mu front to parsować, żeby w podpowiedzi wyświetlić tylko jeden
-    - Z trzeciej strony myślałem o jakiejś wspólnej tabeli, ale zawsze to będzie się wiązało z przetwarzaniem ogromnych ilości danych.
-    - Muszę ustalić co jest szybsze, czy przetwarzanie w bazie, czy wypuszczanie z backendu jakiś przefiltrowanych danych i na froncie parsowanie, zakładam, że przeszukiwanie bazy jest szybsze, pytanie tylko, czy przy 20.000 elementów będzie to w miarę płynne, czy nie.
+- [ ] Przetestować kasowanie modelu python
+- [ ] Dodając posiłek z pozycji admina, nie dowiązuje posiłku z pozycji produktu
+- [ ] Mimo tego, że jest wiele pustych pól na produkty, dodają się nowe JS
 - [ ] Jeżeli dodam produkt o danej wielkości, to do niego się robią dowiazania, czyli jeden produkt może mieć tylko jedna wielkość, tak nie może być, muszę zrobić oddzielną tabelę, tylko do wielkości produktów, i tam będą się dowiązywały wielkości poszczególnych jakoś.
-- [ ] Rozbudować kasowanie posiłków z pozycji admina, aby podczas kasowania posiłku, patrzyło na produkty i sprawdzało, czy te produkty są jeszcze gdzieś dowiązane, jak nie to mają się kasować.
 
 
 - [ ] Skrócić czas wyświetlania alertów.
@@ -21,6 +16,13 @@
     - [ ] Front ma sobie pobierać te nazwy filtrując albo cuś i wyświetlać w podpowiedziach
     - [ ] Do działania frontu jest gotowiec auto uzupełniania w dokumentacji materialize
 
+- [x] Przetestować aktualny JS.
+- [x] TO JEST KURCZE PROBLEM: 
+    - Przeszukując całą bezę aby sprawdzić, czy czasem nie został żaden posiłek będzie słabe.
+    - Z drugiej strony, nie tworzenie takich dowiązań, tylko dodawanie nowych, skończy się tym, że klient dostanie 40.000 batonów i będzie musiał mu front to parsować, żeby w podpowiedzi wyświetlić tylko jeden
+    - Z trzeciej strony myślałem o jakiejś wspólnej tabeli, ale zawsze to będzie się wiązało z przetwarzaniem ogromnych ilości danych.
+    - Muszę ustalić co jest szybsze, czy przetwarzanie w bazie, czy wypuszczanie z backendu jakiś przefiltrowanych danych i na froncie parsowanie, zakładam, że przeszukiwanie bazy jest szybsze, pytanie tylko, czy przy 20.000 elementów będzie to w miarę płynne, czy nie.
+- [x] Rozbudować kasowanie posiłków z pozycji admina, aby podczas kasowania posiłku, patrzyło na produkty i sprawdzało, czy te produkty są jeszcze gdzieś dowiązane, jak nie to mają się kasować.
 
 ### Na później
 - [ ] Zmienić kolorki na stronie, aby to jakoś wyglądało.

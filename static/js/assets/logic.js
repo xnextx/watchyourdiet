@@ -72,7 +72,7 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toas
             var success = function (response) {
                 console.log("Sukces");
                 Toast.Show([true, "Dodano nowy posiłek."])
-                $scope.reset();
+                // $scope.reset();
 
             };
             var error = function (reason) {
@@ -227,7 +227,7 @@ Application.factory('Dev', ['$http', function ($http) {
             $http.post("/api/v1/MyMeal/", {
                 "owner": 1,
                 "product": [], //TODO: Dlaczego dając [] wysyła się poprawnie, a cokolwiek innego już nie? nie chce tak!
-                "name": "test"
+                "name": "test",
             });
         },
         DeleteTestData: function (pk) {

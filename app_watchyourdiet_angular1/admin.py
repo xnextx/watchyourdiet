@@ -2,7 +2,11 @@ from django.contrib import admin
 from .models import *
 from django.db.models import Count
 
+
 # Register your models here.
+
+
+
 
 class MyMealAdmin(admin.ModelAdmin):
     actions = ['delete_models']
@@ -17,20 +21,22 @@ class MyMealAdmin(admin.ModelAdmin):
         # keywords_list = MyMeal.objects.all().annotate(key_count=Count('product_set'))
 
         for mymeal in obj.all():
-            print(mymeal.product.all())
-            for product_x in mymeal.product.all():
+            for product in mymeal.product.all():
+                product.count = MyMeal.objects.filter(product=product).count()
 
-                print(product_x.id)
-
-        # for mymeal in obj.all():
-        #     for product in mymeal.product.all():
-        #         product.count = MyMeal.objects.filter(product=product).count()
-
-        # for x in obj.all():
-        #     for y in x.product.all():
-        #         y.delete()
-        #     x.delete()
-
+        for x in obj.all():
+            for y in x.product.all():
+                # print("==========")
+                # print(y)
+                # print(dir(y))
+                # print(dir(y.mymeal))
+                # print(y.mymeal.count())
+                # print("==========")
+                # if y.mymeal.count() <= 1:
+                #     print("Można skasować produkt")
+                #     Product.objects.get(id=y.id).delete()
+                y.delete()
+            x.delete()
 
 
 admin.site.register(MyMeal, MyMealAdmin)

@@ -27,7 +27,7 @@ class MyMealSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         print(validated_data)
         products_data = validated_data.pop('product')
-        mymeal = MyMeal.objects.create(**validated_data)
+        mymeall = MyMeal.objects.create(**validated_data)
         if (products_data):
             print("=========")
             print(products_data)
@@ -35,8 +35,13 @@ class MyMealSerializer(serializers.ModelSerializer):
             for product in products_data:
                 try:
                     one = Product.objects.filter(owner=user, name=product['name']).all()[0]
-                    mymeal.product.add(one)
+                    one.mymeal.add(mymeall)
+                    mymeall.product.add(one)
+                    one.save()
                 except:
                     produc = Product.objects.create(owner=user, name=product['name'], size=product['size'])
-                    mymeal.product.add(produc)
-        return mymeal
+                    produc.mymeal.add(mymeall)
+                    mymeall.product.add(produc)
+                    produc.save()
+
+        return mymeall
