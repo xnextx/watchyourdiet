@@ -10,6 +10,7 @@ This project is not finished yet...
 - Materialize
 - Angular 1.x
 - Jquery
+- Karma & Jasmine
 - LESS
 - Bower
 - Babel ES6 to ES5
