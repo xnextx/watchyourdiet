@@ -1,3 +1,4 @@
+
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var babel = require('gulp-babel');
@@ -11,7 +12,7 @@ gulp.task('browsersync', function () {
 });
 
 gulp.task('es6to5', function () {
-    return gulp.src('static/js/logic.js')
+    return gulp.src('static/js/assets/logic.js')
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -25,7 +26,7 @@ gulp.task('es6to5', function () {
 });
 
 gulp.task('watchFiles', function () {
-    gulp.watch('static/js/logic.js', ['es6to5']);
+    gulp.watch('static/js/assets/logic.js', ['es6to5']);
     gulp.watch(['./**/*.{scss,css,html,py}'], browserSync.reload);
 
 });

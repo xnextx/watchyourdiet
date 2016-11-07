@@ -12,3 +12,4 @@ This project is not finished yet...
 - Jquery
 - LESS
 - Bower
+- Babel ES6 to ES5

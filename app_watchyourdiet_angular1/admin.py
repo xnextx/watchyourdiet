@@ -17,14 +17,19 @@ class MyMealAdmin(admin.ModelAdmin):
         # keywords_list = MyMeal.objects.all().annotate(key_count=Count('product_set'))
 
         for mymeal in obj.all():
-            for product in mymeal.product.all():
-                product.count = MyMeal.objects.filter(product=product).count()
+            print(mymeal.product.all())
+            for product_x in mymeal.product.all():
 
-        print(product.count)
-        for x in obj.all():
-            for y in x.product.all():
-                y.delete()
-            x.delete()
+                print(product_x.id)
+
+        # for mymeal in obj.all():
+        #     for product in mymeal.product.all():
+        #         product.count = MyMeal.objects.filter(product=product).count()
+
+        # for x in obj.all():
+        #     for y in x.product.all():
+        #         y.delete()
+        #     x.delete()
 
 
 

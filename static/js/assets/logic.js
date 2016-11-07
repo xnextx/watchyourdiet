@@ -1,10 +1,7 @@
-"use strict";
-
 var Application = angular.module('Application', []).config(function ($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken'; //Elements for Django
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken'
 });
-
 Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toast', function ($scope, $http, Dev, Database, Toast) {
     var max_products = 10;
     $scope.products = [{
@@ -24,6 +21,7 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toas
 //
 //*****************************************
     $scope.reset = function () {
+
         $scope.products = [{
             "owner": 1,
             "name": null,
@@ -35,6 +33,7 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toas
             "product": $scope.products
         }];
         Toast.Show([true, "Zresetowano formularz."])
+        return true;
     };
     $scope.is_empty = function (value) {
         return (value == "" || value == null || value == undefined);
@@ -116,12 +115,13 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toas
                         }
                         return [true, null];
                     } else {
-                        // $scope.products[$scope.products.length - 1].name = product.name;
-                        // $scope.products[$scope.products.length - 1].size = product.size;
                         for (var x in $scope.products) {
-                            if ($scope.is_empty($scope.products[x].name)) {
+                            if ($scope.is_empty($scope.products[x].name) && $scope.products.length > 1) {
                                 return [false, null];
                             } else {
+                                $scope.products[0].name = product.name;
+                                $scope.products[0].size = product.size;
+                                return [true, null];
 
                             }
                         }
@@ -172,12 +172,18 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toas
     $scope.del_last_product = function () {
         if ($scope.products.length > 1) {
             $scope.products.pop();
+            return true;
+        } else {
+            return false;
         }
     };
     $scope.del_new_product = function (product) {
         if ($scope.products.length > 1) {
             var id = $scope.products.indexOf(product);
             $scope.products.splice(id, 1);
+            return true;
+        } else {
+            return false;
         }
     };
 
@@ -191,13 +197,12 @@ Application.controller('main_site', ['$scope', '$http', 'Dev', 'Database', 'Toas
 // Dev.DeleteTestData(20);
 
 
-}])
-;
+}]);
 Application.factory('Toast', [function () {
     return {
         Show: function (reason) {
             if (reason[1] != null) {
-                Materialize.toast(reason[1], 4000)
+                Materialize.toast(reason[1], 4000);
                 console.log(`Toast: ${reason[0]} - ${reason[1]}`);
             }
         }
@@ -230,3 +235,16 @@ Application.factory('Dev', ['$http', function ($http) {
         }
     };
 }]);
+
+Application.factory('Toast', [function () {
+    return {
+        Show: function (reason) {
+            if (reason[1] != null) {
+                Materialize.toast(reason[1], 4000);
+                console.log(`Toast: ${reason[0]} - ${reason[1]}`);
+            }
+        }
+    }
+}]);
+
+

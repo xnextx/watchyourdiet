@@ -17,6 +17,7 @@ module.exports = function (config) {
         files: [
             '../../node_modules/angular/angular.js',                             // angular
             '../../static/bower_components/jquery/dist/jquery.min.js',                             // jquery
+            '../../static/bower_components/materialize/dist/js/materialize.min.js',                             // jquery
             '../../node_modules/angular-ui-router/release/angular-ui-router.js', // ui-router
             '../../node_modules/angular-mocks/angular-mocks.js', // loads our modules for tests
             'tests/*',

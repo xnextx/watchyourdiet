@@ -30,3 +30,4 @@ class MyMeal(models.Model):
 
     def __str__(self):
         return u"%s" % self.name
+
